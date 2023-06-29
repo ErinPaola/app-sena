@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -37,7 +37,29 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          $request->validate([
+            'id_tipo_identificacion'  => 'required',
+            'numero_identificacion'   => 'required',
+            'primer_nombre'           => 'required',
+            'segundo_nombre'          => 'required',
+            'primer_apellido'         => 'required',
+            'segunso_apellido'        => 'required',
+
+            'email' => 'required',
+            'address' => 'required'
+            ]);
+            $users = new User;
+            $users->id_tipo_identificacion = $request->id_tipo_identificacion;
+            $users->numero_identificacion   = $request->numero_identifica;
+            $users->primer_nombre           = $request->primer_nombre;
+            $users->segundo_nombre          = $request->segundo_nombre;
+            $users->primer_apellido         = $request->primer_apellido;
+            $users->segunso_apellido        = $request->segunso_apellido;
+
+            $users->email = $request->email;
+            $users->address = $request->address;
+            $users->save();
+            return redirect()->route('users.index')->with('success','users has been created successfully.');
     }
 
     /**
@@ -48,7 +70,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('users.show',compact('users'));
     }
 
     /**
@@ -59,8 +81,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('users.edit',compact('id'));
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -71,7 +95,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'id_tipo_identificacion'  => 'required',
+            'numero_identificacion'   => 'required',
+            'primer_nombre'           => 'required',
+            'segundo_nombre'          => 'required',
+            'primer_apellido'         => 'required',
+            'segunso_apellido'        => 'required',
+            ]);
+            $users = User::find($id);
+            $users->id_tipo_identificacion = $request->id_tipo_identificacion;
+            $users->numero_identificacion   = $request->numero_identifica;
+            $users->primer_nombre           = $request->primer_nombre;
+            $users->segundo_nombre          = $request->segundo_nombre;
+            $users->primer_apellido         = $request->primer_apellido;
+            $users->segunso_apellido        = $request->segunso_apellido;
+            $users->email = $request->email;
+            $users->address = $request->address;
+            $users->save();
+            return redirect()->route('users.index')->with('success','users Has Been updated successfully');
+            
     }
 
     /**
@@ -80,8 +123,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($users)
     {
-        //
+        $users->delete();
+return redirect()->route('users.index')->with('success','Company has been deleted successfully');
+
     }
 }

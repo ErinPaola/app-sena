@@ -22,7 +22,7 @@
                     <th scope="col">Primer Apellido</th>
                     <th scope="col">Segundo Apellido</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col" colspan="2">Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +34,16 @@
                         <td>{{ $user->primer_apellido }}</td>
                         <td>{{ $user->segundo_apellido }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>
+                          <button type="submit" class="btn btn-danger">Actualizar</button>
+                          <button type="submit" class="btn btn-danger">Editar</button>
+
+                         
+                          <button type="submit" class="btn btn-danger">Eliminar</button>
+                         
+                          </td>
                     </tr>
+
                 @endforeach
             </tbody>
         </table>
