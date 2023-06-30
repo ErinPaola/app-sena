@@ -37,29 +37,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-          $request->validate([
-            'id_tipo_identificacion'  => 'required',
-            'numero_identificacion'   => 'required',
+        $request->validate([
+            // 'id_tipo_identificacion'  => 'required',
+            // 'numero_identificacion'   => 'required',
             'primer_nombre'           => 'required',
-            'segundo_nombre'          => 'required',
             'primer_apellido'         => 'required',
-            'segunso_apellido'        => 'required',
 
             'email' => 'required',
-            'address' => 'required'
-            ]);
-            $users = new User;
-            $users->id_tipo_identificacion = $request->id_tipo_identificacion;
-            $users->numero_identificacion   = $request->numero_identifica;
-            $users->primer_nombre           = $request->primer_nombre;
-            $users->segundo_nombre          = $request->segundo_nombre;
-            $users->primer_apellido         = $request->primer_apellido;
-            $users->segunso_apellido        = $request->segunso_apellido;
+        ]);
 
-            $users->email = $request->email;
-            $users->address = $request->address;
-            $users->save();
-            return redirect()->route('users.index')->with('success','users has been created successfully.');
+        $users = new User;
+        // $users->id_tipo_identificacion = $request->id_tipo_identificacion;
+        // $users->numero_identificacion   = $request->numero_identifica;
+        $users->primer_nombre           = $request->primer_nombre;
+        $users->segundo_nombre          = $request->segundo_nombre;
+        $users->primer_apellido         = $request->primer_apellido;
+        $users->segundo_apellido        = $request->segundo_apellido;
+
+        $users->email = $request->email;
+        $users->save();
+
+        return redirect()->route('usuarios.index')->with(
+            'status',
+            'Los usuarios se han creado correctamente.'
+        );
     }
 
     /**
@@ -70,7 +71,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('users.show',compact('users'));
+        return view('usuarios.show', compact('usuarios'));
     }
 
     /**
@@ -81,7 +82,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('users.edit',compact('id'));
+        return view('usuarios.edit', compact('id'));
     }
 
 
@@ -96,25 +97,24 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id_tipo_identificacion'  => 'required',
-            'numero_identificacion'   => 'required',
+            // 'id_tipo_identificacion'  => 'required',
+            // 'numero_identificacion'   => 'required',
             'primer_nombre'           => 'required',
             'segundo_nombre'          => 'required',
             'primer_apellido'         => 'required',
             'segunso_apellido'        => 'required',
-            ]);
-            $users = User::find($id);
-            $users->id_tipo_identificacion = $request->id_tipo_identificacion;
-            $users->numero_identificacion   = $request->numero_identifica;
-            $users->primer_nombre           = $request->primer_nombre;
-            $users->segundo_nombre          = $request->segundo_nombre;
-            $users->primer_apellido         = $request->primer_apellido;
-            $users->segunso_apellido        = $request->segunso_apellido;
-            $users->email = $request->email;
-            $users->address = $request->address;
-            $users->save();
-            return redirect()->route('users.index')->with('success','users Has Been updated successfully');
-            
+        ]);
+        $users = User::find($id);
+        // $users->id_tipo_identificacion = $request->id_tipo_identificacion;
+        // $users->numero_identificacion   = $request->numero_identifica;
+        $users->primer_nombre           = $request->primer_nombre;
+        $users->segundo_nombre          = $request->segundo_nombre;
+        $users->primer_apellido         = $request->primer_apellido;
+        $users->segunso_apellido        = $request->segunso_apellido;
+        $users->email = $request->email;
+        $users->address = $request->address;
+        $users->save();
+        return redirect()->route('usuarios.index')->with('ÉXITO', 'Los usuarios se han actualizado correctamente');
     }
 
     /**
@@ -123,10 +123,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($users)
+    public function destroy($id)
     {
-        $users->delete();
-return redirect()->route('users.index')->with('success','Company has been deleted successfully');
 
+        $user = User::find($id);
+        $user->delete($id);
+        return redirect()->route('usuarios.index')->with('success', 'El usuario ha sido eliminado con éxito');
     }
 }

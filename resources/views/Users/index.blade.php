@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="UTF-8">
+    <title>Laravel 9 CRUD Tutorial Example</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <title>Document</title>
 </head>
-
 <body>
-    <div class="container">
-        <p> usuarios</p>
-
+    <div class="container mt-2">
+        <a class="btn btn-success" href="{{ route('usuarios.create') }}">Crear Usuario</a>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
         <table class="table">
             <thead>
                 <tr>
@@ -35,13 +35,14 @@
                         <td>{{ $user->segundo_apellido }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                          <button type="submit" class="btn btn-danger">Actualizar</button>
-                          <button type="submit" class="btn btn-danger">Editar</button>
-
-                         
-                          <button type="submit" class="btn btn-danger">Eliminar</button>
-                         
-                          </td>
+                            <form action="{{ route('usuarios.destroy',$user->id) }}" method="Post">
+                            <a class="btn btn-primary" href="{{ route('usuarios.edit',$user->id) }}">Editar</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                            </td>
+                            
                     </tr>
 
                 @endforeach
