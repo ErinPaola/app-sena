@@ -38,8 +38,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'id_tipo_identificacion'  => 'required',
-            // 'numero_identificacion'   => 'required',
+            'id_tipo_identificacion'  => 'required',
+            'numero_identificacion'   => 'required',
             'primer_nombre'           => 'required',
             'primer_apellido'         => 'required',
 
@@ -97,16 +97,16 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            // 'id_tipo_identificacion'  => 'required',
-            // 'numero_identificacion'   => 'required',
+            'id_tipo_identificacion'  => 'required',
+            'numero_identificacion'   => 'required',
             'primer_nombre'           => 'required',
             'segundo_nombre'          => 'required',
             'primer_apellido'         => 'required',
             'segunso_apellido'        => 'required',
         ]);
         $users = User::find($id);
-        // $users->id_tipo_identificacion = $request->id_tipo_identificacion;
-        // $users->numero_identificacion   = $request->numero_identifica;
+        $users->id_tipo_identificacion = $request->id_tipo_identificacion;
+        $users->numero_identificacion   = $request->numero_identifica;
         $users->primer_nombre           = $request->primer_nombre;
         $users->segundo_nombre          = $request->segundo_nombre;
         $users->primer_apellido         = $request->primer_apellido;
