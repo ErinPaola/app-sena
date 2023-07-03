@@ -38,7 +38,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_tipo_identificacion'  => 'required',
+            'tipo_identificacion'  => 'required',
             'numero_identificacion'   => 'required',
             'primer_nombre'           => 'required',
             'primer_apellido'         => 'required',
@@ -47,7 +47,7 @@ class UserController extends Controller
         ]);
 
         $users = new User;
-        // $users->id_tipo_identificacion = $request->id_tipo_identificacion;
+        // $users->tipo_identificacion = $request->tipo_identificacion;
         // $users->numero_identificacion   = $request->numero_identifica;
         $users->primer_nombre           = $request->primer_nombre;
         $users->segundo_nombre          = $request->segundo_nombre;
@@ -82,9 +82,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('usuarios.edit', compact('id'));
+        $user = User::find($id);
+        return view('users.edit', compact('user'));
     }
-
 
 
     /**
@@ -97,7 +97,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id_tipo_identificacion'  => 'required',
+            'tipo_identificacion'  => 'required',
             'numero_identificacion'   => 'required',
             'primer_nombre'           => 'required',
             'segundo_nombre'          => 'required',
@@ -105,7 +105,7 @@ class UserController extends Controller
             'segunso_apellido'        => 'required',
         ]);
         $users = User::find($id);
-        $users->id_tipo_identificacion = $request->id_tipo_identificacion;
+        $users->tipo_identificacion = $request->tipo_identificacion;
         $users->numero_identificacion   = $request->numero_identifica;
         $users->primer_nombre           = $request->primer_nombre;
         $users->segundo_nombre          = $request->segundo_nombre;

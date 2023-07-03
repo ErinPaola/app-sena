@@ -18,7 +18,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'id_tipo_identificacion' => $this->faker->randomElement(['1', '2', '3', '4', '5']),
+            'tipo_identificacion' => $this->faker->randomElement(['1', '2', '3', '4', '5']),
             'numero_identificacion' => $this->faker->dni(),
             'primer_nombre'     => $this->faker->firstName(),
             'segundo_nombre'    => $this->faker->firstName(),
